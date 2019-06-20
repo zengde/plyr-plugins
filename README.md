@@ -7,3 +7,5 @@ my collection of some plyr plugins 一些plyr插件
 4. 视频旋转 `plyr-rotate.js`
 5. 弹幕 `plyr-danmu.js`
 6. vr ? `plyr-vr.js`
+7. 播放列表支持 `plyr-list.js`
+8. 优爱腾支持 `plyr-yat.js`
