@@ -1,10 +1,23 @@
 # plyr-plugins
 my collection of some plyr plugins 一些plyr插件
 
+[示例 demo](https://zengde.github.io/plyr-plugins/)
+
 1. [截图](https://github.com/zengde/plyr-plugin-capture)
 2. [预览](https://github.com/zengde/plyr-plugin-thumbnail)
 3. [生成缩略图](https://github.com/zengde/plyr-thumbnail-generate)
 4. 视频旋转 `plyr-rotate.js`
+
+配置
+```
+    // your other configs
+    i18n:{
+        // your other i18n
+        rotate: '旋转'
+    }
+```
+   点击 ![capture button](svg/plyr-rotate.svg) 旋转视频
+
 5. 弹幕 `plyr-danmu.js`
 6. vr ? `plyr-vr.js`
 7. 播放列表支持 `plyr-list.js`
