@@ -1,0 +1,44 @@
+<meta charset='utf-8' />
+<div style='width:840px;'>
+	<video preload="metadata" id="player" playsinline controls crossorigin="anonymous">
+		<!-- Captions are optional -->
+		<track kind="captions" label="English captions"
+			src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt" srclang="en" default />
+	</video>
+</div>
+
+Nginx cors 配置:
+<pre>
+    add_header 'Access-Control-Allow-Origin' '*';
+    add_header 'Access-Control-Allow-Credentials' 'true';
+    add_header 'Access-Control-Allow-Headers' 'Authorization,Content-Type,Accept,Origin,User-Agent,DNT,Cache-Control,X-Mx-ReqToken,X-Requested-With';
+    add_header 'Access-Control-Allow-Methods' 'GET,POST,OPTIONS';
+</pre>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3/dist/plyr.css" />
+
+<script src="https://cdn.jsdelivr.net/npm/plyr@3/dist/plyr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flv.js@1/dist/flv.min.js"></script>
+
+<script>
+    const source='http://h5player.bytedance.com/video/flv/xgplayer-demo-360p.flv';
+    const videoElement = document.getElementById('player');
+        
+    const player = new Plyr(videoElement, {captions: {active: true, update: true, language: 'en'}});
+
+    if (!flvjs.isSupported()){
+        videoElement.src = source;
+    }else{
+        var flvPlayer = flvjs.createPlayer({
+            type: 'flv',
+            url: source
+        });
+        flvPlayer.attachMediaElement(videoElement);
+        flvPlayer.load();
+        /*
+		flvPlayer.play().catch(error=>{
+			console.dir(error)
+        });
+        */
+    }
+</script>

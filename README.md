@@ -3,6 +3,10 @@ my collection of some plyr plugins 一些plyr插件
 
 [示例 demo](https://zengde.github.io/plyr-plugins/index.html)
 
+整合[flv.js](https://github.com/bilibili/flv.js) `flv.html`
+
+[flv.js demo](https://zengde.github.io/plyr-plugins/flv.html)
+
 1. [截图](https://github.com/zengde/plyr-plugin-capture)
 2. [预览](https://github.com/zengde/plyr-plugin-thumbnail)
 3. [生成缩略图](https://github.com/zengde/plyr-thumbnail-generate)
