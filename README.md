@@ -1,7 +1,7 @@
 # plyr-plugins
 my collection of some plyr plugins 一些plyr插件
 
-[示例 demo](https://zengde.github.io/plyr-plugins/)
+[示例 demo](https://zengde.github.io/plyr-plugins/index.html)
 
 1. [截图](https://github.com/zengde/plyr-plugin-capture)
 2. [预览](https://github.com/zengde/plyr-plugin-thumbnail)
