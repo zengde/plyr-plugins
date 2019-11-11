@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>danmu.js</title>
+  <style>
+    html {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    #wrap {
+      position: absolute;
+      left: 0;
+      width: 840px;
+      height: 472px;
+    }
+
+    #vs {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      z-index: 9999
+    }
+
+    #mse {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    #btnwrap {
+      position: absolute;
+      left: 0;
+      bottom: 20%;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.5.4/dist/plyr.css" />
+  <script src="https://cdn.jsdelivr.net/npm/plyr@3.5.4/dist/plyr.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/danmu.js@0.1.0/browser/index.js"></script>
+
+</head>
+
+<body>
+  <div id="wrap">
+    <div id="vs"></div>
+    <div style='width:840px;'>
+      <video preload="metadata" id="mse" playsinline controls crossorigin="anonymous">
+
+      </video>
+    </div>
+  </div>
+  <div id="btnwrap">
+    <div>
+      <button onclick="start()">弹幕开始</button>
+      <button onclick="pause()">弹幕暂停</button>
+      <button onclick="play()">弹幕播放</button>
+      <button onclick="stop()">弹幕结束</button>
+    </div>
+    <div>
+      <input type="text" id="comment" placeholder="输入弹幕内容" />
+      <button onclick="sendComment()">发送弹幕</button>
+    </div>
+    <div>
+      <input type="text" id="hidetype" placeholder="输入要屏蔽的弹幕类型" />
+      <button onclick="hide()">隐藏</button>
+      <button onclick="show()">显示</button>
+    </div>
+    <!-- <div>
+      <input type="text" id="commentid" placeholder="输入弹幕id"/>
+      <input type="text" id="duration" placeholder="输入弹幕duration"/>
+      <input type="text" id="commentnewid" placeholder="输入弹幕新id"/>
+      <button onclick="setCommentDuration()">设置某个弹幕duration</button>
+      <button onclick="setAllDuration()">设置所有弹幕duration</button>
+      <button onclick="setCommentID()">设置某个弹幕id</button>
+    </div> -->
+
+    <button onclick="toggleFullscreen()">切换全屏状态</button>
+    <button onclick="toggleDirection()">切换弹幕方向</button>
+    <button onclick="toggleArea()">切换弹幕区域</button>
+  </div>
+  <script>
+    const video = document.querySelector('video');
+    video.src = 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4';
+    const player = new Plyr(video);
+
+
+    let el = document.createElement('span');
+    el.innerHTML = '弹幕弹幕弹幕<img src="./demo/grinning-face.png" />弹幕弹幕';
+    let wrap = document.getElementById('wrap');
+    let direction = 'r2l'
+    let danmu = new DanmuJs({
+      container: document.getElementById('vs'), //弹幕容器，该容器发生尺寸变化时会自动调整弹幕行为
+      containerStyle: { //弹幕容器样式
+        zIndex: 100
+      },
+      player: video, //配合音视频元素（video或audio）同步使用时需提供该项
+      comments: [
+        {
+          duration: 6000,
+          id: '1',
+          start: 1000,
+          prior: true,
+          color: true,
+          txt: '长弹幕长弹幕',
+          style: {
+            color: '#ff9500',
+            fontSize: '20px',
+            border: 'solid 1px #ff9500',
+            borderRadius: '50px',
+            padding: '2px 11px',
+            backgroundColor: 'rgba(255, 255, 255, 0.1)'
+          },
+          // mode: 'top'
+        },
+        {
+          duration: 6000,
+          id: '2',
+          start: 2000,
+          prior: true,
+          color: true,
+          txt: '长弹幕',
+          style: {
+            color: '#ff9500',
+            fontSize: '20px',
+            border: 'solid 1px #ff9500',
+            borderRadius: '50px',
+            padding: '2px 11px',
+            backgroundColor: 'rgba(255, 255, 255, 0.1)'
+          },
+          // mode: 'bottom'
+        },
+        {
+          duration: 6000,
+          id: '3',
+          start: 3000,
+          prior: true,
+          color: true,
+          txt: '长弹幕长',
+          style: {
+            color: '#ff9500',
+            fontSize: '20px',
+            border: 'solid 1px #ff9500',
+            borderRadius: '50px',
+            padding: '2px 11px',
+            backgroundColor: 'rgba(255, 255, 255, 0.1)'
+          },
+          el: el
+        },
+        {
+          duration: 6000,
+          id: '4',
+          start: 4000,
+          prior: true,
+          // color: true,
+          txt: '长弹幕长弹幕长弹幕长弹幕',
+          style: {
+            color: '#000',
+            fontSize: '20px',
+            borderRadius: '50px',
+            padding: '2px 11px',
+            backgroundColor: 'rgba(255, 255, 255, 0.1)'
+          },
+          // mode: 'bottom'
+        }
+      ],
+      area: {  //弹幕显示区域
+        start: 0, //区域顶部到播放器顶部所占播放器高度的比例
+        end: 1 //区域底部到播放器顶部所占播放器高度的比例
+      },
+      defaultOff: false, //开启此项后弹幕不会初始化，默认初始化弹幕
+      live: true,
+      direction,
+    })
+  </script>
+  <script>
+    let id = 5
+    function rgba() {//rgb颜色随机
+      var r = Math.floor(Math.random() * 256);
+      var g = Math.floor(Math.random() * 256);
+      var b = Math.floor(Math.random() * 256);
+      var opacity = Math.random().toFixed(2);
+      var rgb = 'rgba(' + r + ',' + g + ',' + b + ',' + opacity + ')';
+      return rgb;
+    }
+    function color16() {//十六进制颜色随机
+      var r = Math.floor(Math.random() * 256);
+      var g = Math.floor(Math.random() * 256);
+      var b = Math.floor(Math.random() * 256);
+      var color = '#' + r.toString(16) + g.toString(16) + b.toString(16);
+      return color;
+    }
+    function randomString() {
+      var $chars = '随机生成的弹幕文本内容随机生成的弹幕文本内容';    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+      var maxPos = $chars.length;
+      len = Math.floor(Math.random() * maxPos);;
+
+      var pwd = '';
+      for (i = 0; i < len; i++) {
+        pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+      }
+      return pwd;
+    }
+    function start() {
+      danmu.start()
+      let id = 1
+      setInterval(function () {
+        id++
+        let color = color16();
+        let bgColor = rgba();
+        // let el = Player.util.createDom('div', '<span>张鑫:&nbsp;</span><img src="https://s1.pstatp.com/ee/annual-meeting-live/static/images/stickers/2.png" alt="2" />', {}, 'showed-sticker-danmu')
+        danmu.sendComment({  //发送弹幕
+          duration: 6000,
+          id: id + '',
+          txt: randomString() + id + '', //弹幕文字内容
+          style: {  //弹幕自定义样式
+            color: color,
+            fontSize: '20px',
+            border: 'solid 1px ' + color,
+            borderRadius: '50px',
+            padding: '2px 11px',
+            backgroundColor: bgColor,
+            margin: '4px'
+          },
+        })
+      }, 50)
+    }
+    function play() {
+      danmu.play()
+    }
+    function pause() {
+      danmu.pause()
+    }
+    function stop() {
+      danmu.stop()
+    }
+    function sendComment() {
+      id++;
+      let comment = document.getElementById('comment').value
+      danmu.sendComment({
+        duration: 5000,
+        id: id + '',
+        prior: true,
+        txt: comment,
+        style: {
+          color: '#ff9500',
+          fontSize: '20px',
+          border: 'solid 1px #ff9500',
+          borderRadius: '50px',
+          padding: '5px 11px',
+          backgroundColor: 'rgba(255, 255, 255, 0.1)'
+        },
+        mode: document.getElementById('hidetype').value
+      })
+    }
+    function setCommentDuration() {
+      let id = document.getElementById('commentid').value
+      let duration = document.getElementById('duration').value
+      danmu.setCommentDuration(id, duration)
+    }
+    function setAllDuration() {
+      let duration = document.getElementById('duration').value
+      danmu.setAllDuration('scroll', duration)
+    }
+    function hide() {
+      let type = document.getElementById('hidetype').value
+      danmu.hide(type)
+      console.log(type)
+    }
+    function show() {
+      let type = document.getElementById('hidetype').value
+      danmu.show(type)
+    }
+    function setCommentID() {
+      let id = document.getElementById('commentid').value
+      let newid = document.getElementById('commentnewid').value
+      danmu.setCommentID(id, newid)
+    }
+    let getFullscreen = function (el) {
+      if (el.requestFullscreen) {
+        el.requestFullscreen()
+      } else if (el.mozRequestFullScreen) {
+        el.mozRequestFullScreen()
+      } else if (el.webkitRequestFullscreen) {
+        el.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT)
+      } else if (player.webkitSupportsFullscreen) {
+        player.webkitEnterFullscreen()
+      } else if (el.msRequestFullscreen) {
+        el.msRequestFullscreen()
+      }
+    }
+    let exitFullscreen = function () {
+      if (document.exitFullscreen) {
+        document.exitFullscreen()
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen()
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen()
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen()
+      }
+    }
+    let isFullscreen = false
+    function toggleFullscreen() {
+      if (isFullscreen) {
+        exitFullscreen()
+      } else {
+        getFullscreen(wrap)
+      }
+      isFullscreen = !isFullscreen
+    }
+    function toggleDirection() {
+      danmu.stop()
+      if (direction === 'r2l') {
+        danmu.setDirection('b2t')
+        direction = 'b2t'
+      } else {
+        danmu.setDirection('r2l')
+        direction = 'r2l'
+      }
+      danmu.start()
+    }
+    let area = 1
+    function toggleArea() {
+      if (area === 1) {
+        area = 2
+      } else if (area === 2) {
+        area = 3
+      } else if (area === 3) {
+        area = 4
+      } else if (area === 4) {
+        area = 1
+      }
+      danmu.config.area.end = (5 - area) / 4
+      danmu.bulletBtn.main.channel.resetArea()
+    }
+    function createDom(el = 'div', tpl = '', attrs = {}, cname = '') {
+      let dom = document.createElement(el)
+      dom.className = cname
+      dom.innerHTML = tpl
+      Object.keys(attrs).forEach(item => {
+        let key = item
+        let value = attrs[item]
+        if (el === 'video' || el === 'audio') {
+          if (value) {
+            dom.setAttribute(key, value)
+          }
+        } else {
+          dom.setAttribute(key, value)
+        }
+      })
+      return dom
+    }
+  </script>
+</body>
+
+</html>

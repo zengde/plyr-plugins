@@ -29,7 +29,7 @@ my collection of some plyr plugins 一些plyr插件
 ```
    点击 ![capture button](svg/plyr-rotate.svg) 旋转视频
 
-5. 弹幕 `plyr-danmu.js`
+5. [弹幕](https://github.com/bytedance/danmu.js) [demo](https://zengde.github.io/plyr-plugins/danmu.html)
 6. [VR](https://github.com/zengde/plyr-vr) 
 7. 播放列表支持 `plyr-list.js`
 8. 优爱腾支持 `plyr-yat.js`
