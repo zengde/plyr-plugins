@@ -3,10 +3,17 @@ my collection of some plyr plugins 一些plyr插件
 
 [示例 demo](https://zengde.github.io/plyr-plugins/index.html)
 
+## MSE 支持
+### FLV
 整合[flv.js](https://github.com/bilibili/flv.js) `flv.html`
 
 [flv.js demo](https://zengde.github.io/plyr-plugins/flv.html)
+### WebTorrent
+整合[webtorrent](https://github.com/webtorrent/webtorrent) `webtorrent.html`
 
+[webtorrent demo](https://zengde.github.io/plyr-plugins/webtorrent.html)
+
+## 插件
 1. [截图](https://github.com/zengde/plyr-plugin-capture)
 2. [预览](https://github.com/zengde/plyr-plugin-thumbnail)
 3. [生成缩略图](https://github.com/zengde/plyr-thumbnail-generate)
@@ -23,7 +30,7 @@ my collection of some plyr plugins 一些plyr插件
    点击 ![capture button](svg/plyr-rotate.svg) 旋转视频
 
 5. 弹幕 `plyr-danmu.js`
-6. vr ? `plyr-vr.js`
+6. [VR](https://github.com/zengde/plyr-vr) 
 7. 播放列表支持 `plyr-list.js`
 8. 优爱腾支持 `plyr-yat.js`
 9. srt支持 `plyr-srt.js`
